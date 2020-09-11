@@ -129,15 +129,12 @@ func check_end_turn():
 			# Give another card to both players
 			winner.add_card(deck.pop_front())
 			if winner == player1:
-				print("The winner is player1")
 				loser = player2
 			else:
-				print("The winner is player2")
 				loser = player1
 			if len(deck) > 0:
 				loser.add_card(deck.pop_front())
 			else:
-				# FIXME : atont card is in the wrong place
 				if not last_turn:
 					remove_child(atont)
 					loser.add_card(atont)

@@ -13,7 +13,7 @@ onready var seed_label = get_node("SeedLabel")
 
 func update_ui():
 	value_label.text = str(value)
-	seed_label.text = str(enums.CardSeed.keys()[card_seed])
+	seed_label.text = str(enums.CardSeed.keys()[card_seed]).capitalize()
 
 
 func _on_Card_input_event(_viewport, event, _shape_idx):
