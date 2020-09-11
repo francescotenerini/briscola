@@ -56,7 +56,7 @@ func init_board():
 	current_player = player1
 
 
-func _ready():
+func _ready() -> void:
 	randomize()
 	init_board()
 
