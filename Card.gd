@@ -17,27 +17,7 @@ func update_ui():
 
 
 func _on_Card_input_event(_viewport, event, _shape_idx):
-	var board = get_node("/root/Board")
-	if not player:
-		return
-	if board.current_player != player:
-		return
-
 	if event is InputEventMouseButton and event.pressed:
-		# Check legal move: check ruling seed
-		if not board.ruling_seed:
-			board.ruling_seed = card_seed
-		elif (
-			board.ruling_seed != card_seed
-			and player.hand_has_seed(board.ruling_seed)
-		):
+		if not player:
 			return
-		player.played_card = self
-		# move the card from the player to the board
-		player.remove_child(self)
-		player.hand.remove(player.hand.find(self))
-		board.add_child(self)
-		position = player.played_card_placeholder.position
-		rotation_degrees = player.played_card_placeholder.rotation_degrees
-		# tell the board we have done
-		board.next_player()
+		player.play_card(self)

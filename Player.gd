@@ -9,6 +9,7 @@ onready var points_label = get_node("PointsLabel")
 onready var card_placeholder_1 = get_node("CardPlaceholder1")
 onready var card_placeholder_2 = get_node("CardPlaceholder2")
 onready var card_placeholder_3 = get_node("CardPlaceholder3")
+onready var board = get_node("/root/Board")
 
 
 func add_points(amount):
@@ -52,3 +53,26 @@ func hand_has_seed(a_seed):
 		if card.card_seed == a_seed:
 			return true
 	return false
+
+
+func play_card(card):
+	if board.current_player != self:
+		return
+	# Check legal move: check ruling seed
+	if not board.ruling_seed:
+		board.ruling_seed = card.card_seed
+	elif (
+		board.ruling_seed != card.card_seed
+		and hand_has_seed(board.ruling_seed)
+	):
+		return
+
+	played_card = card
+	# move the card from the player to the board
+	remove_child(card)
+	hand.remove(hand.find(card))
+	board.add_child(card)
+	card.position = played_card_placeholder.position
+	card.rotation_degrees = played_card_placeholder.rotation_degrees
+	# tell the board we have done
+	board.next_player()
