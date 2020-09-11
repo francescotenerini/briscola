@@ -24,7 +24,7 @@ func _on_Card_input_event(_viewport, event, _shape_idx):
 		return
 
 	if event is InputEventMouseButton and event.pressed:
-		# TODO Check legal move: check ruling seed
+		# Check legal move: check ruling seed
 		if not board.ruling_seed:
 			board.ruling_seed = card_seed
 		elif (
