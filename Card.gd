@@ -1,11 +1,11 @@
 extends Area2D
 
-var value : int = 0
-var card_seed : int = 1
-var point : int = 0
-var strength : int = 0
+var value: int = 0
+var card_seed: int = 1
+var point: int = 0
+var strength: int = 0
 
-var player : Node
+var player: Node
 
 onready var value_label = get_node("ValueLabel")
 onready var seed_label = get_node("SeedLabel")
@@ -16,7 +16,7 @@ func update_ui():
 	seed_label.text = str(enums.CardSeed.keys()[card_seed])
 
 
-func _on_Card_input_event(viewport, event, shape_idx):
+func _on_Card_input_event(_viewport, event, _shape_idx):
 	var board = get_node("/root/Board")
 	if not player:
 		return
@@ -27,7 +27,10 @@ func _on_Card_input_event(viewport, event, shape_idx):
 		# TODO Check legal move: check ruling seed
 		if not board.ruling_seed:
 			board.ruling_seed = card_seed
-		elif board.ruling_seed != card_seed and player.hand_has_seed(board.ruling_seed):
+		elif (
+			board.ruling_seed != card_seed
+			and player.hand_has_seed(board.ruling_seed)
+		):
 			return
 		player.played_card = self
 		# move the card from the player to the board

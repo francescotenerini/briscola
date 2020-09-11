@@ -1,13 +1,13 @@
 extends Node2D
 
-var deck : Array
+var deck: Array
 var Card = preload("res://Card.tscn")
 
-var current_player : Node
-var ruling_seed : int
-var atont : Node
-var atont_card_seed : int
-var last_turn : bool = false
+var current_player: Node
+var ruling_seed: int
+var atont: Node
+var atont_card_seed: int
+var last_turn: bool = false
 
 onready var atont_placeholder = get_node("AtontPlaceholder")
 onready var player1 = get_node("Player1")
@@ -18,32 +18,14 @@ onready var played_card_placeholder_2 = get_node("PlayedCard2Placeholder")
 
 func create_deck():
 	var points_map = {
-		1: 11,
-		2: 0,
-		3: 10,
-		4: 0,
-		5: 0,
-		6: 0,
-		7: 0,
-		8: 2,
-		9: 3,
-		10: 4
+		1: 11, 2: 0, 3: 10, 4: 0, 5: 0, 6: 0, 7: 0, 8: 2, 9: 3, 10: 4
 	}
 	var strength_map = {
-		1: 10,
-		2: 1,
-		3: 9,
-		4: 2,
-		5: 3,
-		6: 4,
-		7: 5,
-		8: 6,
-		9: 7,
-		10: 8
+		1: 10, 2: 1, 3: 9, 4: 2, 5: 3, 6: 4, 7: 5, 8: 6, 9: 7, 10: 8
 	}
 	# Create the deck
 	for c_seed in enums.CardSeed.values():
-		for val in range(1, 3):
+		for val in range(1, 11):
 			var card = Card.instance()
 			card.value = val
 			card.card_seed = c_seed
@@ -81,23 +63,48 @@ func _ready():
 
 func get_winner():
 	print("Atont is ", atont_card_seed)
-	print("Player 1 played ", player1.played_card.value, " of ", player1.played_card.card_seed)
-	print("Player 2 played ", player2.played_card.value, " of ", player2.played_card.card_seed)
+	print(
+		"Player 1 played ",
+		player1.played_card.value,
+		" of ",
+		player1.played_card.card_seed
+	)
+	print(
+		"Player 2 played ",
+		player2.played_card.value,
+		" of ",
+		player2.played_card.card_seed
+	)
 	# atont seed check
-	if player1.played_card.card_seed == atont_card_seed and player2.played_card.card_seed != atont_card_seed:
+	if (
+		player1.played_card.card_seed == atont_card_seed
+		and player2.played_card.card_seed != atont_card_seed
+	):
 		return player1
-	if player1.played_card.card_seed != atont_card_seed and player2.played_card.card_seed == atont_card_seed:
+	if (
+		player1.played_card.card_seed != atont_card_seed
+		and player2.played_card.card_seed == atont_card_seed
+	):
 		return player2
-	if player1.played_card.card_seed == atont_card_seed and player2.played_card.card_seed == atont_card_seed:
+	if (
+		player1.played_card.card_seed == atont_card_seed
+		and player2.played_card.card_seed == atont_card_seed
+	):
 		# Check card strength
 		if player1.played_card.strength > player2.played_card.strength:
 			return player1
 		else:
 			return player2
 	# ruling seed check
-	if player1.played_card.card_seed == ruling_seed and player2.played_card.card_seed != ruling_seed:
+	if (
+		player1.played_card.card_seed == ruling_seed
+		and player2.played_card.card_seed != ruling_seed
+	):
 		return player1
-	if player1.played_card.card_seed != ruling_seed and player2.played_card.card_seed == ruling_seed:
+	if (
+		player1.played_card.card_seed != ruling_seed
+		and player2.played_card.card_seed == ruling_seed
+	):
 		return player2
 	else:
 		# Check card strength
@@ -139,7 +146,7 @@ func check_end_turn():
 			# Check game winner
 			if player1.points > player2.points:
 				print("The winner is player1")
-			elif player2.points > player2.points:
+			elif player2.points > player1.points:
 				print("The winner is player2")
 			else:
 				print("The game is a draw")

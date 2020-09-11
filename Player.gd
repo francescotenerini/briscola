@@ -1,10 +1,9 @@
 extends Sprite
 
-
-var points : int = 0
-var hand : Array
-var played_card_placeholder : Node
-var played_card : Node
+var points: int = 0
+var hand: Array
+var played_card_placeholder: Node
+var played_card: Node
 
 onready var points_label = get_node("PointsLabel")
 onready var card_placeholder_1 = get_node("CardPlaceholder1")

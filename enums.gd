@@ -1,9 +1,8 @@
 extends Node
 
-
 enum CardSeed {
-	Clubs,
-	Swords,
-	Coins,
-	Cups,
+	CLUBS,
+	SWORDS,
+	COINS,
+	CUPS,
 }
